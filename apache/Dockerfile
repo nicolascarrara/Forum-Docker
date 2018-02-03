@@ -17,6 +17,6 @@ COPY run.sh /run.sh
 RUN chmod 0755 /run.sh
 
 WORKDIR /var/www/html/application
-RUN composer install --no-interaction --prefer-source
+RUN composer install
 EXPOSE 80
 CMD ["/run.sh"]
