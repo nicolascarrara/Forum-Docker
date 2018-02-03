@@ -15,7 +15,7 @@ services:
       ports:
         - 8181:80
   apache:
-    build: .
+    build: apache
     ports:
       - 81:80
     depends_on:
