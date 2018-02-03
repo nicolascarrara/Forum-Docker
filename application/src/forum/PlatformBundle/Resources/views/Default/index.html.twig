@@ -1,0 +1,31 @@
+{% extends "layout.html.twig" %} {% block body %} {% for categorie in categories %}
+<div class="panel panel-default">
+  <table class="footable table table-striped table-bordered table-white table-primary table-hover tablet footable-loaded">
+    <thead>
+      <tr>
+        <th> {{categorie.nom}} {% if is_granted('ROLE_ADMIN') %}<button class="pull-right addsection" type="button" onclick="AddSection('{{categorie.id}}')" name="button">Ajouter une section</button>{%endif%}</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      {% for section in sections %} {% if categorie.id==section.categorie.id %}
+      <tr>
+        <td title="" class="expand footable-visible footable-first-column"><span class="footable-toggle"></span>
+          <span class="icon-wrapper">
+  			 <i class="glyphicon glyphicon-comment" ></i>
+  			</span><a href="section/{{section.id}}">
+          <span class="desc-wrapper">
+  				{{ section.nom }}<br>
+  				<span class="description">Description</span><br> </a></span>
+        </td>
+      </tr>
+      {%endif%} {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endfor %}
+<script type="text/javascript">
+  function AddSection(id) {
+    document.location.href = "newsection/" + id;
+  }
+</script>{% endblock %}

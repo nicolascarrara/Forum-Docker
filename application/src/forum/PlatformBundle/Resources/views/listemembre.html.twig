@@ -1,0 +1,16 @@
+{% extends "layout.html.twig" %} {% block body %}
+<div class="list-group">
+
+
+
+  {% for membre in membres %}
+  <a href="/membre/{{membre.id}}">
+{% if membre.role=='ROLE_ADMIN' %}
+<button type="button" class="list-group-item"><span class="glyphicon glyphicon-star" aria-hidden="true"></span> {{ membre.pseudo}}</button>{%else%}
+<button type="button" class="list-group-item"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{ membre.pseudo}}</button>{%endif%}
+
+
+  </a> {% endfor %}
+  <a href="/addmembre/"><button type="button" class="list-group-item"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Ajouter un nouveau membre</button> </a>
+</div>
+{% endblock %}

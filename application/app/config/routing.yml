@@ -1,0 +1,8 @@
+forum_platform:
+    resource: "@forumPlatformBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+app:
+    resource: '@AppBundle/Controller/'
+    type: annotation

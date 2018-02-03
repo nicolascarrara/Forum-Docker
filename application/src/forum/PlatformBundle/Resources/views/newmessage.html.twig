@@ -1,0 +1,12 @@
+{% extends "layout.html.twig" %} {% block body %}
+<h3>Répondre au sujet</h3>
+
+<div class="well">
+  {{ form_start(form) }} {{ form_widget(form) }} {{ form_end(form) }}
+</div>
+<style media="screen">
+  label {
+    display: none;
+  }
+</style>
+{% endblock %}

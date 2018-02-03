@@ -1,0 +1,58 @@
+{% extends "layout.html.twig" %} {% block body %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <div class="panel panel-default">
+        <div class="panel-heading">Inscription</div>
+        <div class="panel-body">
+          {{ form_start(form) }}
+          <div class="form_group">
+            <div class="col-md-8 col-md-offset-2">
+              {{ form_row(form.pseudo, {'attr': {'class': 'form-control'}}) }}
+            </div>
+          </div>
+          <div class="form_group">
+            <div class="col-md-8 col-md-offset-2">
+              {{ form_row(form.password, {'attr': {'class': 'form-control'}}) }}
+            </div>
+          </div>
+          <div class="form_group">
+            <div class="col-md-8 col-md-offset-2">
+              {{ form_row(form.mail, {'attr': {'class': 'form-control'}}) }}
+            </div>
+          </div>
+          <div class="form_group">
+            <div class="col-md-8 col-md-offset-2">
+              {{ form_row(form.ville, {'attr': {'class': 'form-control'} }) }}
+            </div>
+          </div>
+          <div class="form_group">
+            <div class="col-md-8 col-md-offset-2">
+              {{ form_row(form.site, {'attr': {'class': 'form-control'} }) }}
+            </div>
+          </div>
+          <div class="form_group">
+            <div class="col-md-8 col-md-offset-2">
+              {{ form_row(form.anniversaire, {'attr': {'class': 'form-control'}}) }}
+            </div>
+          </div>
+          <div class="form_group">
+            <div class="col-md-8 col-md-offset-2">
+              {{ form_row(form.avatar, {'attr': {'class': 'form-control'}}) }}
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-md-8 col-md-offset-4" style="margin-top:5px;">
+              <button type="submit" class="btn btn-primary">
+                        <i class="fa fa-btn fa-user"></i> Valider
+                    </button>
+            </div>
+          </div>
+          {{ form_end(form) }}
+        </div>
+        <a href="/login/">Déjà inscrit ? Connectez-vous !</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

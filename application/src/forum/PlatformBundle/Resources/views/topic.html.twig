@@ -1,0 +1,137 @@
+{% extends "layout.html.twig" %} {% block body %}
+<section class="container">
+  <a href="/section/{{sujet.section}}" id="listetopic" class="btn btn-primary btn-info"><span class="glyphicon glyphicon-step-backward"></span> Retour à la liste des sujets </a>
+  <section class="row clearfix">
+    <section class="col-md-12 column">
+      <div class="row clearfix">
+        <div class="col-md-12 column">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <section class="panel-title">
+                <time class="pull-right">
+                      <i class="glyphicon glyphicon-calendar"></i> {{sujet.creation|date("d/m/Y")}}  <i class="glyphicon glyphicon-time"></i> {{sujet.creation|date("H:i:s")}}
+                      </time>
+                <section class="pull-left" id="id">
+                  <abbr title="Sujet">#{{sujet.id}}</abbr>
+                </section>
+              </section>
+            </div>
+            <section class="row panel-body">
+              <section id="user-description" class="col-md-3 ">
+                <section class="well">
+                  <a href="/membre/{{sujet.membre.id}}">{{sujet.membre.pseudo}} </a>
+                  <figure>
+                    {% if sujet.membre.avatar %}
+                    <img src="{{ asset('forum/PlatformBundle/public/uploads/avatars/' ~ sujet.membre.avatar) }}" alt="" class="img-rounded img-responsive" /> {% else %}
+                    <img class="img-rounded img-responsive" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjEfzHyALsu7DjWPO37lXdg79xuRmlmgicxbh_cIo7bcp6k09_" alt="avatar"> {% endif %}
+                  </figure>
+                  <dl class="dl-horizontal">
+                    <dt>Inscription : </dt>
+                    <dd>{{sujet.membre.inscription|date("d/m/Y") }}</dd>
+                    <dt>Ville : </dt>
+                    <dd>{{sujet.membre.ville}}</dd>
+                  </dl>
+                </section>
+              </section>
+              <section class="col-md-9">
+                <h2> {{sujet.titre}}</h2>
+                <hr> {{ sujet.contenu }}</hr>
+              </section>
+
+            </section>
+            <div class="panel-footer">
+              <div class="row">
+                <section class="col-md-4">
+
+                  {% if app.user %}{%if not messages %}
+                  <a class='answer' href="newmessage"><button>
+                  <i class="glyphicon glyphicon-share-alt"></i> Répondre </button></a> {%endif%}{% if is_granted('ROLE_ADMIN') %}
+                  <button onclick="deleteTopic('{{sujet.id}}','{{sujet.section}}');"><i class="glyphicon glyphicon-share-alt"></i> Effacer le sujet </button>{% endif %} {% endif %}
+                </section>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </section>
+</section>
+
+
+
+{% for message in messages %}
+
+<section class="container">
+  <section class="row clearfix">
+    <section class="col-md-12 column">
+      <div class="row clearfix">
+        <div class="col-md-12 column">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <section class="panel-title">
+                <time class="pull-right">
+                      <i class="glyphicon glyphicon-calendar"></i> {{message.creation|date("d/m/Y")}}  <i class="glyphicon glyphicon-time"></i> {{message.creation|date("H:i:s")}}
+                      </time>
+                <section class="pull-left" id="id">
+                  <abbr title="Message">#{{message.id}}</abbr>
+                </section>
+              </section>
+            </div>
+            <section class="row panel-body">
+              <section id="user-description" class="col-md-3 ">
+                <section class="well">
+                  <a href="/membre/{{message.membre.id}}">{{ message.membre.pseudo }}</a>
+                  <figure>
+                    {% if message.membre.avatar %}
+                    <img src="{{ asset('forum/PlatformBundle/public/uploads/avatars/' ~ message.membre.avatar) }}" alt="avatar" class="img-rounded img-responsive" /> {% else %}
+                    <img class="img-rounded img-responsive" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjEfzHyALsu7DjWPO37lXdg79xuRmlmgicxbh_cIo7bcp6k09_" alt="avatar"> {% endif %}
+                  </figure>
+                  <dl class="dl-horizontal">
+                    <dt>Inscription : </dt>
+                    <dd>{{ message.membre.inscription|date("d/m/Y") }}</dd>
+                    <dt>Ville : </dt>
+                    <dd>{{message.membre.ville}}</dd>
+                  </dl>
+                </section>
+
+
+              </section>
+              <section class="col-md-9">
+                {{ message.contenu }}
+              </section>
+            </section>
+            <div class="panel-footer">
+              <div class="row">
+                <section class="col-md-4">
+                  {% if app.user %} {%if loop.last%}
+                  <a class="answer" href="newmessage"><button>
+                  <i class="glyphicon glyphicon-share-alt"></i> Répondre</button> </a>{%endif%} {% if is_granted('ROLE_ADMIN') %}
+                  <button onclick="deleteMessage('{{sujet.id}}','{{sujet.section}}','{{message.id}}');"><i class="glyphicon glyphicon-share-alt"></i> Effacer </button>{% endif %} {% endif %}
+                </section>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </section>
+</section>
+
+{% endfor %}
+<script type="text/javascript">
+  function deleteTopic(id, section) {
+
+    var r = confirm("Souhaitez vous supprimer ce sujet ?");
+    if (r == true) {
+      document.location.href = "/section/" + section + "/delete/" + id;
+    }
+  }
+
+  function deleteMessage(id, section, message) {
+    var r = confirm("Souhaitez vous effacer ce message ?");
+    if (r == true) {
+      document.location.href = "/section/" + section + "/topic/" + id + "/delete/" + message;
+    }
+  }
+</script>
+{% endblock %}
